@@ -17,19 +17,23 @@ import static helpers.FileHelper.takeSnapShot;
 
 
 public class TestBase {
-    WebDriver driver;
+    public WebDriver driver;
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
 
     @BeforeMethod(alwaysRun = true)
     public void openBrowser(Method method, Object[] param){
-        ChromeOptions options = new ChromeOptions();
+        //     ChromeOptions options = new ChromeOptions();
 //        options.addArguments("headless");
 //        options.addArguments("window-size=1800x900");
 
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        //WebDriver driver = new ChromeDriver(options);
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.get("https://propetscom.herokuapp.com/");
         logger.info("Start test: " + method.getName());
         if(param.length != 0) {
@@ -43,7 +47,7 @@ public class TestBase {
             logger.info("Test result: PASSED");
         }else{
             logger.error("Test result: FAILED");
-            takeSnapShot(driver);
+            //takeSnapShot(driver);
 
         }
         driver.quit();

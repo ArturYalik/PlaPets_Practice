@@ -1,6 +1,6 @@
 package ui_tests.AlexMed;
 
-import dataProvider.DPForRegistration;
+import dataProvider.DPForLogin;
 import models.UserModel;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -10,42 +10,34 @@ import pages.LoginRegistrationPage;
 import pages.StartPage;
 import ui_tests.TestBase;
 
+public class LoginTests extends TestBase {
 
-
-public class RegistrationTests extends TestBase {
-
-
-    @Test(dataProvider = "DpFile_registrationPositiveTest", dataProviderClass = DPForRegistration.class,
-    groups = {"positiveGroup"})
-    public void registrationPositiveTest(UserModel user){
+    @Test(dataProvider = "DpFile_loginPositiveTest", dataProviderClass = DPForLogin.class,
+            groups = {"positiveGroup"})
+    public void loginPositiveTest(UserModel user){
         Assert.assertTrue(new StartPage(driver)
                 .openLoginRegistrationPage_clickButtonSignIn()
-                .clickTabSignUp()
-                .fillFormSignUp(UserModel.builder()
-                        .name(user.getName())
+                .fillFormSignIn(UserModel.builder()
                         .email(user.getEmail())
                         .password(user.getPassword())
-                        .confirmPassword(user.getConfirmPassword())
                         .build())
                 .clickButtonSubmit()
                 .isTextElementPresent_Logout())
-        ;
+                ;
     }
-    @Test(dataProvider = "DpFile_registrationNegativeTest_WrongEmail", dataProviderClass = DPForRegistration.class,
+
+    @Test(dataProvider = "DpFile_loginNegativeTest_WrongEmail", dataProviderClass = DPForLogin.class,
             groups = {"negativeGroup"})
-    public void registrationNegativeTest_WrongEmail(UserModel user){
+    public void loginNegativeTest_WrongEmail(UserModel user){
         Assert.assertTrue(new StartPage(driver)
                 .openLoginRegistrationPage_clickButtonSignIn()
-                .clickTabSignUp()
-                .fillFormSignUp(UserModel.builder()
-                        .name(user.getName())
+                .fillFormSignIn(UserModel.builder()
                         .email(user.getEmail())
                         .password(user.getPassword())
-                        .confirmPassword(user.getConfirmPassword())
                         .build())
                 .clickButtonSubmitNegative()
-                .isMessageErrorPresent_Email_not_valid())
-        ;
+                .isTextPresent_ForgotPassword())
+                ;
     }
 
     @AfterMethod(alwaysRun = true)

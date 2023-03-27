@@ -1,4 +1,4 @@
-package ui_tests;
+package ui_tests.ArturYalik;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,6 +24,7 @@ public class TestBase {
     @BeforeMethod(alwaysRun = true)
     public void openBrowser(Method method, Object[] param){
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
 //        options.addArguments("headless");
 //        options.addArguments("window-size=1800x900");
 

@@ -13,9 +13,12 @@ public class StartPage extends PageHelper {
 
     @FindBy(xpath = "//div[contains(text(),'Sign in')]")
     WebElement signInButton;
+
+    @FindBy(xpath = "//div[contains(text(),'Sign in')]")
+    WebElement homeButton;
     @FindBy(css = ".sc-bUrLeq")
     WebElement signInForm;
-    @FindBy (xpath = "//div[contains(text(),'Sign up')]")
+    @FindBy(xpath = "//div[contains(text(),'Sign up')]")
     WebElement signUpButton;
     @FindBy(xpath = "//div[contains(text(),'Name:')]/..//input")
     WebElement nameField;
@@ -23,6 +26,8 @@ public class StartPage extends PageHelper {
 
     @FindBy(xpath = "//div[contains(text(),'Email:')]/..//input")
     WebElement emailField;
+    @FindBy(xpath = "//input[@type='password']")
+    WebElement password;
     @FindBy(xpath = "//div[contains(text(),'Password:')]/..//input[@class=\"sc-hJJRrs jCNhsI\"]")
     WebElement password1;
     @FindBy(xpath = "//div[contains(text(),'Password:')]/..//input[@class=\"sc-hJJRrs kznLLG\"]")
@@ -39,15 +44,19 @@ public class StartPage extends PageHelper {
         return signInForm.isDisplayed() && signUpButton.isDisplayed();
     }
 
-    public void clickSignUpButton(){
+    public boolean homeButtonVisible() {
+        return homeButton.isDisplayed() && homeButton.isDisplayed();
+    }
+
+    public void clickSignUpButton() {
         click(signUpButton);
     }
 
-    public void fillNameField(String name){
+    public void fillNameField(String name) {
         inputText(nameField, name);
     }
 
-    public void fillEmailField(String name){
+    public void fillEmailField(String name) {
         inputText(emailField, name);
     }
 
@@ -59,7 +68,11 @@ public class StartPage extends PageHelper {
         inputText(password2, password);
     }
 
-    public void clickSubmitButton(){
+    public void clickSubmitButton() {
         click(submitButton);
+    }
+
+    public void fillPassword(String pass) {
+        inputText(password, pass);
     }
 }
